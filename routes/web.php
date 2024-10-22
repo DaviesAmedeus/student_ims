@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'index']); //returns a form to login
 Route::post('/', [AuthController::class, 'login'])->name('login'); //triggers a function to login a user
-Route::get('/logout', [AuthController::class, 'logout']); //returns a form to login
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout'); //returns a form to login
 
 
 
@@ -18,9 +19,8 @@ Route::get('/logout', [AuthController::class, 'logout']); //returns a form to lo
 
 
 Route::middleware(['admin'])->group(function(){
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('/admin/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
+
 
 
 Route::get('/admin/admin/list', function () {
@@ -29,19 +29,17 @@ Route::get('/admin/admin/list', function () {
 });
 
 Route::middleware(['teacher'])->group(function(){
-    Route::get('/teacher/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('/teacher/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
+
+
 });
 
 Route::middleware(['student'])->group(function(){
-    Route::get('/student/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('/student/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
+
 });
 
 Route::middleware(['parent'])->group(function(){
-    Route::get('/parent/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('/parent/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
+
 });
