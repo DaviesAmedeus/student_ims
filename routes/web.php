@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [AuthController::class, 'index']); //returns a form to login
 Route::post('/', [AuthController::class, 'login'])->name('login'); //triggers a function to login a user
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout'); //returns a form to login
+Route::get('/forgot_password', [AuthController::class, 'forgotPassword'])->name('forgot_password'); //returns a form to reset a password
+Route::post('/reset', [AuthController::class, 'reset'])->name('reset_password'); //accepts a post request to reset a password
+Route::get('/reset/{token}', [AuthController::class, 'reseted'])->name('reseted_password');
+Route::post('/reset/{token}', [AuthController::class, 'postReset']);
+
 
 
 
