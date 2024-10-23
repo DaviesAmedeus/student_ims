@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -25,12 +26,17 @@ Route::post('/reset/{token}', [AuthController::class, 'postReset']);
 
 Route::middleware(['admin'])->group(function(){
     Route::get('/admin/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
+    Route::get('/admin/admin/list', [AdminController::class, 'list']);
+    Route::get('/admin/admin/add', [AdminController::class, 'add']);
+    Route::post('/admin/admin/add', [AdminController::class, 'insert']);
+    Route::get('/admin/admin/edit/{id}', [AdminController::class, 'edit']);
+    Route::post('/admin/admin/edit/{id}', [AdminController::class, 'update']);
+    Route::get('/admin/admin/delete/{id}', [AdminController::class, 'delete']);
 
 
 
-Route::get('/admin/admin/list', function () {
-    return view('admin.admin.list');
-});
+
+
 });
 
 Route::middleware(['teacher'])->group(function(){
