@@ -20,10 +20,6 @@ Route::post('/reset/{token}', [AuthController::class, 'postReset']);
 
 
 
-
-
-
-
 Route::middleware(['admin'])->group(function(){
     Route::get('/admin/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
     Route::get('/admin/admin/list', [AdminController::class, 'list']);
@@ -32,25 +28,18 @@ Route::middleware(['admin'])->group(function(){
     Route::get('/admin/admin/edit/{id}', [AdminController::class, 'edit']);
     Route::post('/admin/admin/edit/{id}', [AdminController::class, 'update']);
     Route::get('/admin/admin/delete/{id}', [AdminController::class, 'delete']);
-
-
-
-
-
 });
+
+
 
 Route::middleware(['teacher'])->group(function(){
     Route::get('/teacher/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
-
-
 });
 
 Route::middleware(['student'])->group(function(){
     Route::get('/student/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
-
 });
 
 Route::middleware(['parent'])->group(function(){
     Route::get('/parent/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
-
 });
