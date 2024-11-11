@@ -134,6 +134,7 @@
       </p>
     </a>
   </li>
+
   <li class="nav-item">
     <a href="{{ asset('admin/admin/list') }}" class="nav-link {{ Request::segment(2)=='admin' ? 'active' : ''}}">
       <i class="nav-icon far fa-user "></i>
@@ -142,6 +143,16 @@
       </p>
     </a>
   </li>
+
+  <li class="nav-item">
+    <a href="{{ asset('admin/class/list') }}" class="nav-link {{ Request::segment(2)=='class' ? 'active' : ''}}">
+      <i class="nav-icon far fa-user "></i>
+      <p>
+        Class
+      </p>
+    </a>
+  </li>
+
 @elseif(Auth::user()->user_type == 2) <!-- Teacher -->
 <li class="nav-item">
     <a href="{{ asset('teacher/dashboard') }}" class="nav-link {{ Request::segment(2)=='dashboard' ? 'active' : ''}}">
