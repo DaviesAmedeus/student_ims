@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ClassController;
+use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,14 @@ Route::middleware(['admin'])->group(function(){
     Route::get('/admin/class/edit/{id}', [ClassController::class, 'edit']);
     Route::post('/admin/class/edit/{id}', [ClassController::class, 'update']);
     Route::get('/admin/class/delete/{id}', [ClassController::class, 'delete']);
+
+    // Managing subject routes
+    Route::get('/admin/subject/list', [SubjectController::class, 'list']);
+    Route::get('/admin/subject/add', [SubjectController::class, 'add']);
+    Route::post('/admin/subject/add', [SubjectController::class, 'insert']);
+    Route::get('/admin/subject/edit/{id}', [SubjectController::class, 'edit']);
+    Route::post('/admin/subject/edit/{id}', [SubjectController::class, 'update']);
+    Route::get('/admin/subject/delete/{id}', [SubjectController::class, 'delete']);
 
 
 

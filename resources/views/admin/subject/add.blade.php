@@ -5,7 +5,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Add New Admin</h1>
+                        <h1>Add New Subject</h1>
                     </div>
 
                 </div>
@@ -24,21 +24,30 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label>Name</label>
+                                        <label>Subject Name</label>
                                         <input type="name" name="name" class="form-control"
-                                            value="{{ old('name') }}" placeholder="Enter Name">
+                                            value="{{ old('name') }}" placeholder="Enter subject name..." required>
                                         <div class="text-danger">{{ $errors->first('name') }}</div>
                                     </div>
+
                                     <div class="form-group">
-                                        <label>Email address</label>
-                                        <input type="email" name="email" class="form-control"
-                                            value="{{ old('email') }}" placeholder="Enter email">
-                                        <div class="text-danger">{{ $errors->first('email') }}</div>
+                                        <label>Subject Type</label>
+                                        <select name="type" id="" class="form-control">
+                                            <option value="0">Theory</option>
+                                            <option value="1">Practical</option>
+                                        </select>
+                                        <div class="text-danger">{{ $errors->first('name') }}</div>
                                     </div>
+
                                     <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" name="password" class="form-control" placeholder="Password">
+                                        <label>Status</label>
+                                        <select name="status" id="" class="form-control">
+                                            <option value="1">Active</option>
+                                            <option value="0">In Acive</option>
+                                        </select>
+                                        <div class="text-danger">{{ $errors->first('name') }}</div>
                                     </div>
+
                                 </div>
                                 <!-- /.card-body -->
 

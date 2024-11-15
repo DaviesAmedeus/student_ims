@@ -30,19 +30,14 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-  <!-- Preloader -->
-  {{-- <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
-  </div> --}}
+    <x-header />
 
-  <!-- Navbar -->
-  @include('layouts.header')
-  <!-- /.navbar -->
-  @yield('content')
-  @include('layouts.footer')
+
+    {{ $slot }}
+
+
+    <x-footer />
 </div>
-<!-- ./wrapper -->
-
 <!-- jQuery -->
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->

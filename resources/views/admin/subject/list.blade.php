@@ -5,10 +5,10 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Admin List <span class="badge badge-secondary"> Total: </span> </h1>
+                        <h1>Subject List <span class="badge badge-secondary"> Total: </span> </h1>
                     </div>
                     <div class="col-sm-6" style="text-align: right;">
-                        <a href="{{ url('admin/class/add') }}" class="btn btn-primary">Add new Class</a>
+                        <a href="{{ url('admin/subject/add') }}" class="btn btn-primary">Add new Subject</a>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -29,6 +29,26 @@
                                                 value="{{ Request::get('name') }}" placeholder="Search by name">
                                         </div>
 
+                                        <div class="form-group col-md-3">
+                                            {{-- <label>Subject Type</label> --}}
+                                            <select class="form-control" name="type" >
+                                                <option value="">Select type</option>
+                                                <option {{ (Request::get('type')==0) ? 'selected' : '' }} value="0">Theory</option>
+                                                <option {{ (Request::get('type')==1) ? 'selected' : ''}} value="1">Practical</option>
+
+                                            </select>
+                                        </div>
+
+
+
+                                        {{-- <div class="form-group col-md-3">
+                                            <select name="status" class="form-control">
+                                                <option value="" {{ Request::get('status') === null ? 'selected' : '' }}>All</option>
+                                                <option value="1" {{( Request::get('status') == 1) ? 'selected' : '' }}>Active</option>
+                                                <option value="0" {{ (Request::get('status') == 0) ? 'selected' : '' }}>Inactive</option>
+                                            </select>
+                                        </div> --}}
+
 
                                         <div class="form-group col-md-3">
                                             <input type="date" name="date" class="form-control"
@@ -37,7 +57,7 @@
 
                                         <div class="form-group col-md-3">
                                             <button class="btn btn-primary">Search</button>
-                                            <a href="{{ url('admin/class/list') }}" class="btn btn-success">Reset</a>
+                                            <a href="{{ url('admin/subject/list') }}" class="btn btn-success">Reset</a>
                                         </div>
                                     </div>
                                 </div>
@@ -68,6 +88,7 @@
                                         <tr>
                                             <th style="width: 10px">#</th>
                                             <th>Name </th>
+                                            <th>Type</th>
                                             <th>Status</th>
                                             <th>Created By</th>
                                             <th>Created Date</th>
@@ -80,7 +101,14 @@
                                                 <td>{{ $value->id }}</td>
                                                 <td>{{ $value->name }}</td>
                                                 <td>
-                                                    @if ($value->status == 0)
+                                                    @if ($value->type == 0)
+                                                        Theory
+                                                    @else
+                                                        Practical
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($value->status == 1)
                                                         Active
                                                     @else
                                                         Inactive
@@ -89,9 +117,9 @@
                                                 <td>{{ $value->created_by_name }}</td>
                                                 <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
                                                 <td>
-                                                    <a href="{{ url('admin/class/edit/' . $value->id) }}"
+                                                    <a href="{{ url('admin/subject/edit/' . $value->id) }}"
                                                         class="btn btn-primary">Edit</a>
-                                                    <a href="{{ url('admin/class/delete/' . $value->id) }}"
+                                                    <a href="{{ url('admin/subject/delete/' . $value->id) }}"
                                                         class="btn btn-danger">Delete</a>
                                                 </td>
 
