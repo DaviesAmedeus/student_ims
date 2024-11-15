@@ -40,16 +40,6 @@
                                         </div>
 
 
-
-                                        {{-- <div class="form-group col-md-3">
-                                            <select name="status" class="form-control">
-                                                <option value="" {{ Request::get('status') === null ? 'selected' : '' }}>All</option>
-                                                <option value="1" {{( Request::get('status') == 1) ? 'selected' : '' }}>Active</option>
-                                                <option value="0" {{ (Request::get('status') == 0) ? 'selected' : '' }}>Inactive</option>
-                                            </select>
-                                        </div> --}}
-
-
                                         <div class="form-group col-md-3">
                                             <input type="date" name="date" class="form-control"
                                                 value="{{ Request::get('date') }}" placeholder="Search by date">
@@ -95,10 +85,12 @@
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
+
+                                    @php $num =1; @endphp
                                     <tbody>
                                         @foreach ($getRecord as $value)
                                             <tr>
-                                                <td>{{ $value->id }}</td>
+                                                <td>{{ $num }}</td>
                                                 <td>{{ $value->name }}</td>
                                                 <td>
                                                     @if ($value->type == 0)
@@ -124,6 +116,7 @@
                                                 </td>
 
                                             </tr>
+                                            @php $num++; @endphp
                                         @endforeach
                                     </tbody>
                                 </table>

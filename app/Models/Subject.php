@@ -43,7 +43,7 @@ class Subject extends Model
 
             $return = $return->join('users', 'users.id', 'subjects.created_by')
             ->orderBy('subjects.id', 'desc')
-            ->paginate(10);
+            ->paginate(20);
 
             return $return;
 
@@ -52,6 +52,17 @@ class Subject extends Model
     static public function getSingleSubject($id){
 
         return Subject::find($id);
+}
+
+static public function getSubjects(){
+    $return = Subject::select('subjects.*')
+    ->where('subjects.is_delete', '=', 0)
+    ->where('subjects.status', '=', 1)
+    ->join('users', 'users.id', 'subjects.created_by')
+    ->orderBy('subjects.name', 'asc')
+    ->get();
+
+    return $return;
 }
 
 }

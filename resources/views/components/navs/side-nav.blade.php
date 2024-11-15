@@ -63,6 +63,18 @@
                             </p>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ asset('admin/assign_subject/list') }}"
+                            class="nav-link {{ Request::segment(2) == 'assign_subject' ? 'active' : '' }}">
+                            <i class="nav-icon far fa-user "></i>
+                            <p>
+                                Class Subjects
+                            </p>
+                        </a>
+                    </li>
+
+
                 @endif
 
                 @if (Auth::user()->user_type == 2)<!-- Teacher -->

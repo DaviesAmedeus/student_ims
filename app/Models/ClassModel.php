@@ -27,8 +27,8 @@ class ClassModel extends Model
                 $return = $return->whereDate('classes.created_at', '=', Request::get('date'));
             }
             $return = $return->join('users', 'users.id', 'classes.created_by')
-            ->orderBy('classes.id', 'desc')
-            ->paginate(10);
+            ->orderBy('classes.name')
+            ->paginate(20);
 
             return $return;
 
@@ -38,5 +38,17 @@ class ClassModel extends Model
     static public function getSingleClass($id){
 
             return ClassModel::find($id);
+    }
+
+    static public function getClasses(){
+        $return = ClassModel::select('classes.*')
+        ->where('classes.is_delete', '=', 0)
+        ->where('classes.status', '=', 1)
+        ->join('users', 'users.id', 'classes.created_by')
+        ->orderBy('classes.name', 'asc')
+        ->get();
+
+        return $return;
+
     }
 }

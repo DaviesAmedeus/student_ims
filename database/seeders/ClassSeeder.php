@@ -15,16 +15,54 @@ class ClassSeeder extends Seeder
     {
         $classes = [
             [
-                'name'=> 'Maarifa Ya Jamii',
-                'status'=>true,
-                'created_by'=>1
+                'name' => 'Nursery',
+                'status' => true,
+                'created_by' => 1,
+            ],
+            [
+                'name' => 'Standard One',
+                'status' => true,
+                'created_by' => 1,
+            ],
+
+            [
+                'name' => 'Standard Two',
+                'status' => true,
+                'created_by' => 1,
+            ],
+
+            [
+                'name' => 'Standard Three',
+                'status' => true,
+                'created_by' => 1,
+            ],
+
+            [
+                'name' => 'Standard Four',
+                'status' => true,
+                'created_by' => 1,
+            ],
+
+            [
+                'name' => 'Standard Five',
+                'status' => true,
+                'created_by' => 1,
+            ],
+
+            [
+                'name' => 'Standard Six',
+                'status' => true,
+                'created_by' => 1,
+            ],
+
+            [
+                'name' => 'Standard Seven',
+                'status' => true,
+                'created_by' => 1,
             ],
 
 
-
-
-
-            ];
+        ];
 
 
 

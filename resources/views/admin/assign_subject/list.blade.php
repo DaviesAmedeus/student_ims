@@ -5,10 +5,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Admin List <span class="badge badge-secondary"> Total: </span> </h1>
+                        <h1>Assigned Subjects <span class="badge badge-secondary"> Total: </span> </h1>
                     </div>
                     <div class="col-sm-6" style="text-align: right;">
-                        <a href="{{ url('admin/class/add') }}" class="btn btn-primary">Add new Class</a>
+                        <a href="{{ url('admin/assign_subject/add') }}" class="btn btn-primary">Assign Subject to a
+                            Class</a>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -24,9 +25,15 @@
                             <form action="" method="get">
                                 <div class="card-body">
                                     <div class="row">
+
                                         <div class="form-group col-md-3">
-                                            <input type="text" name="name" class="form-control"
-                                                value="{{ Request::get('name') }}" placeholder="Search by name">
+                                            <input type="text" name="class_name" class="form-control"
+                                                value="{{ Request::get('class_name') }}" placeholder="Search by class_name">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <input type="text" name="subject_name" class="form-control"
+                                                value="{{ Request::get('subject_name') }}" placeholder="Search by subject_name">
                                         </div>
 
 
@@ -37,7 +44,7 @@
 
                                         <div class="form-group col-md-3">
                                             <button class="btn btn-primary">Search</button>
-                                            <a href="{{ url('admin/class/list') }}" class="btn btn-success">Reset</a>
+                                            <a href="{{ url('admin/assign_subject/list') }}" class="btn btn-success">Reset</a>
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +74,8 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th>Name </th>
+                                            <th>Class Name </th>
+                                            <th>Subject Name </th>
                                             <th>Status</th>
                                             <th>Created By</th>
                                             <th>Created Date</th>
@@ -76,27 +84,28 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($getRecord as $value)
-                                            <tr>
-                                                <td>{{ $value->id }}</td>
-                                                <td>{{ $value->name }}</td>
-                                                <td>
-                                                    @if ($value->status == 1)
-                                                        Active
-                                                    @else
-                                                        Inactive
-                                                    @endif
-                                                </td>
-                                                <td>{{ $value->created_by_name }}</td>
-                                                <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
-                                                <td>
-                                                    <a href="{{ url('admin/class/edit/' . $value->id) }}"
-                                                        class="btn btn-primary">Edit</a>
-                                                    <a href="{{ url('admin/class/delete/' . $value->id) }}"
-                                                        class="btn btn-danger">Delete</a>
-                                                </td>
+                                        <tr>
+                                            <td>{{ $value->id }}</td>
+                                            <td>{{ $value->class_name }}</td>
+                                            <td>{{ $value->subject_name }}</td>
+                                            <td>
+                                                @if ($value->status == 1)
+                                                    Active
+                                                @else
+                                                    Inactive
+                                                @endif
+                                            </td>
+                                            <td>{{ $value->created_by_name }}</td>
+                                            <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
+                                            <td>
+                                                <a href="{{ url('admin/assign_subject/edit/' . $value->id) }}"
+                                                    class="btn btn-primary">Edit</a>
+                                                <a href="{{ url('admin/assign_subject/delete/' . $value->id) }}"
+                                                    class="btn btn-danger">Delete</a>
+                                            </td>
 
-                                            </tr>
-                                        @endforeach
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
 
