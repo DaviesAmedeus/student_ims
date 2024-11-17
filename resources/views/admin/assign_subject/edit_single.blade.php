@@ -37,24 +37,16 @@
 
                                     <div class="form-group">
                                         <label>Subject Name</label>
-
+                                        <select name="subject_id" id="" class="form-control" >
                                             @foreach ( $subjects as $subject )
-
-                                                @php $checked = ""; @endphp
-                                                @foreach ($assigned_subjects as $assigned_subject)
-                                                    @if ($assigned_subject->subject_id ==$subject->id)
-                                                    @php $checked = "checked"; @endphp
-                                                    @endif
-                                                @endforeach
-
-                                                <div>
-                                                    <label style="font-weight: normal;">
-                                                        <input {{ $checked }} type="checkbox" value="{{ $subject->id }}" name="subject_id[]"> {{ $subject->name }}
-                                                    </label>
-                                                </div>
+                                                {{-- @if ($subject->id== $class_subject->subject_id) --}}
+                                                    <option {{ ($class_subject->subject_id== $subject->id) ? 'selected' : '' }} value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                {{-- @endif --}}
                                             @endforeach
-                                        <div class="text-danger">{{ $errors->first('subject_id') }}</div>
+                                        </select>
+                                        <div class="text-danger">{{ $errors->first('class_id') }}</div>
                                     </div>
+
 
                                     <div class="form-group">
                                         <label>Status</label>

@@ -1,5 +1,3 @@
-<x-navs.top-nav />
+<x-navs.top-nav /> <!-- Top Navigation -->
 
-
-<!-- Main Sidebar Container -->
-<x-navs.side-nav />
+<x-navs.side-nav /> <!-- Left Side Navigation -->

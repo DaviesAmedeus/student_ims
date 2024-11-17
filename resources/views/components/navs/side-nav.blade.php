@@ -4,7 +4,7 @@
         <span class="brand-text font-weight-bold">Student IMS</span>
     </a>
 
-    <!-- Sidebar -->
+    <!-- Start Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -23,100 +23,19 @@
                 data-accordion="false">
 
                 @if (Auth::user()->user_type == 1) <!-- Admin -->
-
-                    <li class="nav-item">
-                        <a href="{{ asset('admin/dashboard') }}"
-                            class="nav-link {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Dashboard
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ asset('admin/admin/list') }}"
-                            class="nav-link {{ Request::segment(2) == 'admin' ? 'active' : '' }}">
-                            <i class="nav-icon far fa-user "></i>
-                            <p>
-                                Admin
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ asset('admin/class/list') }}"
-                            class="nav-link {{ Request::segment(2) == 'class' ? 'active' : '' }}">
-                            <i class="nav-icon far fa-user "></i>
-                            <p>
-                                Class
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ asset('admin/subject/list') }}"
-                            class="nav-link {{ Request::segment(2) == 'subject' ? 'active' : '' }}">
-                            <i class="nav-icon far fa-user "></i>
-                            <p>
-                                Subject
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ asset('admin/assign_subject/list') }}"
-                            class="nav-link {{ Request::segment(2) == 'assign_subject' ? 'active' : '' }}">
-                            <i class="nav-icon far fa-user "></i>
-                            <p>
-                                Class Subjects
-                            </p>
-                        </a>
-                    </li>
-
-
+                  <x-navs.sidebar-menus.admin />
                 @endif
 
                 @if (Auth::user()->user_type == 2)<!-- Teacher -->
-
-                    <li class="nav-item">
-                        <a href="{{ asset('teacher/dashboard') }}"
-                            class="nav-link {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Dashboard
-                                <span class="badge badge-info right">2</span>
-                            </p>
-                        </a>
-                    </li>
+                <x-navs.sidebar-menus.teacher />
                 @endif
 
                 @if (Auth::user()->user_type == 3)<!-- Student -->
-
-                    <li class="nav-item">
-                        <a href="{{ asset('student/dashboard') }}"
-                            class="nav-link {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Dashboard
-                                <span class="badge badge-info right">2</span>
-                            </p>
-                        </a>
-                    </li>
+                <x-navs.sidebar-menus.student />
                 @endif
 
                 @if (Auth::user()->user_type == 4)<!-- Parent -->
-
-                    <li class="nav-item">
-                        <a href="{{ asset('parent/dashboard') }}"
-                            class="nav-link {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Dashboard
-                                <span class="badge badge-info right">2</span>
-                            </p>
-                        </a>
-                    </li>
+                <x-navs.sidebar-menus.parent />
                 @endif
 
                 <li class="nav-item">
@@ -134,5 +53,5 @@
         </nav>
         <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
+    <!-- End sidebar -->
 </aside>

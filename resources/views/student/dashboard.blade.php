@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+ <x-layout>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -599,4 +598,4 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  @endsection
+  </x-layout>

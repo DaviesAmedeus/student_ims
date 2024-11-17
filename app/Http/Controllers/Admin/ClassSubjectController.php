@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ClassSubjectController extends Controller
 {
+
     public function list(Request $request){
         $viewData['header_title'] = 'Subject assign List';
         $viewData['getRecord'] = ClassSubject::getRecord();
@@ -111,6 +112,52 @@ class ClassSubjectController extends Controller
 
     }
 
+
+
+    public function edit_single($id){
+        $classSubject = ClassSubject::getSingleClassSubject($id);
+
+        if(!empty($classSubject)){
+            $viewData['class_subject'] = $classSubject;
+            $viewData['header_title'] = 'Edit class subject';
+            $viewData['classes']= ClassModel::getClasses();
+            $viewData['subjects']= Subject::getSubjects();
+
+            // dd($viewData);
+            return view('admin.assign_subject.edit_single', $viewData);
+        }else{
+            abort(404);
+        }
+
+
+
+    }
+
+    public function update_single($id, Request $request){
+        if(!empty($request->subject_id)){
+
+
+                $getAlreadyFirst = ClassSubject::getAlreadyFirst($request->class_id, $request->subject_id);
+                if(!empty($getAlreadyFirst)){
+
+                    $getAlreadyFirst->status = $request->status;
+                    $getAlreadyFirst->save();
+                    return redirect('admin/assign_subject/list')->with('success', 'Status successfully updated!');
+
+                }else{
+                    $class_subject = ClassSubject::getSingleClassSubject($id);
+                    $class_subject->class_id = $request->class_id;
+                    $class_subject->subject_id =  $request->subject_id;
+                    $class_subject->status = $request->status;
+                    $class_subject->save();
+                    return redirect('admin/assign_subject/list')->with('success', 'Subject successfully updated!');
+
+                }
+
+
+    }
+
+    }
 
     public function delete($id){
         $classSubject = ClassSubject::getSingleClassSubject($id);

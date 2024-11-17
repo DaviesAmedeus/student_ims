@@ -1,18 +1,17 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\ClassController;
-use App\Http\Controllers\Admin\ClassSubjectController;
-use App\Http\Controllers\Admin\SubjectClassController;
-use App\Http\Controllers\Admin\SubjectController;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\DashboardController;
 use App\Models\SubjectClass;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ClassController;
+use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\Admin\ClassSubjectController;
+use App\Http\Controllers\Admin\SubjectClassController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+
 
 Route::get('/', [AuthController::class, 'index']); //returns a form to login
 Route::post('/', [AuthController::class, 'login'])->name('login'); //triggers a function to login a user
@@ -56,7 +55,13 @@ Route::middleware(['admin'])->group(function(){
     Route::post('/admin/assign_subject/add', [ClassSubjectController::class, 'insert']);
     Route::get('/admin/assign_subject/edit/{id}', [ClassSubjectController::class, 'edit']);
     Route::post('/admin/assign_subject/edit/{id}', [ClassSubjectController::class, 'update']);
+    Route::get('/admin/assign_subject/edit_single/{id}', [ClassSubjectController::class, 'edit_single']);
+    Route::post('/admin/assign_subject/edit_single/{id}', [ClassSubjectController::class, 'update_single']);
     Route::get('/admin/assign_subject/delete/{id}', [ClassSubjectController::class, 'delete']);
+
+    // Managing Admin password
+    Route::get('/admin/change_password', [UserController::class, 'change_password']);
+    Route::post('/admin/change_password', [UserController::class, 'update_password']);
 
 
 });
@@ -65,12 +70,24 @@ Route::middleware(['admin'])->group(function(){
 
 Route::middleware(['teacher'])->group(function(){
     Route::get('/teacher/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
+
+    // Managing teacher password
+    Route::get('/teacher/change_password', [UserController::class, 'change_password']);
+    Route::post('/teacher/change_password', [UserController::class, 'update_password']);
 });
 
 Route::middleware(['student'])->group(function(){
     Route::get('/student/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
+
+    // Managing student password
+    Route::get('/student/change_password', [UserController::class, 'change_password']);
+    Route::post('/student/change_password', [UserController::class, 'update_password']);
 });
 
 Route::middleware(['parent'])->group(function(){
     Route::get('/parent/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
+
+    // Managing parent password
+    Route::get('/parent/change_password', [UserController::class, 'change_password']);
+    Route::post('/parent/change_password', [UserController::class, 'update_password']);
 });
