@@ -14,12 +14,33 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('middle_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->enum('gender', ['male', 'female']);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->tinyInteger('user_type')->comments(['1:admin', '2:teacher', '3:student', '4:parent']);
+            $table->tinyInteger('user_type')->default(3)->comments(['1:admin', '2:teacher', '3:student', '4:parent']);
+            $table->boolean('status')->default(true)->comments(['0(false):In active', '1(true):Active']);
             $table->boolean('is_delete')->default(false)->comments(['0:not deleted', '1:deleted']);
+
+
+            $table->string('admission_number')->nullable();
+            $table->string('admission_date')->nullable();
+            $table->string('roll_number')->nullable();
+            $table->bigInteger('class_id')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('caste')->nullable();
+            $table->string('religion')->nullable();
+            $table->string('mobile_number')->nullable();
+            $table->string('profile_picture')->nullable();
+            $table->string('blood_group')->nullable();
+            $table->string('height')->nullable();
+            $table->string('weight')->nullable();
+
+
+
             $table->timestamps();
         });
 

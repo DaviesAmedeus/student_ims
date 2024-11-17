@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ClassController;
+use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\ClassSubjectController;
 use App\Http\Controllers\Admin\SubjectClassController;
@@ -25,7 +26,11 @@ Route::post('/reset/{token}', [AuthController::class, 'postReset']);
 
 
 Route::middleware(['admin'])->group(function(){
-    Route::get('/admin/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
+
+    //returns Admin Dashboard
+    Route::get('/admin/dashboard', [DashboardController::class, 'dashboard']);
+
+    // Admin Managing Admin
     Route::get('/admin/admin/list', [AdminController::class, 'list']);
     Route::get('/admin/admin/add', [AdminController::class, 'add']);
     Route::post('/admin/admin/add', [AdminController::class, 'insert']);
@@ -33,7 +38,12 @@ Route::middleware(['admin'])->group(function(){
     Route::post('/admin/admin/edit/{id}', [AdminController::class, 'update']);
     Route::get('/admin/admin/delete/{id}', [AdminController::class, 'delete']);
 
-    // Managing class routes
+    // Admin Managing Student
+    Route::get('/admin/student/list', [StudentController::class, 'list']);
+    Route::get('/admin/student/add', [StudentController::class, 'add']);
+    Route::post('/admin/student/add', [StudentController::class, 'insert']);
+
+    // Admin Managing class
     Route::get('/admin/class/list', [ClassController::class, 'list']);
     Route::get('/admin/class/add', [ClassController::class, 'add']);
     Route::post('/admin/class/add', [ClassController::class, 'insert']);
@@ -41,7 +51,7 @@ Route::middleware(['admin'])->group(function(){
     Route::post('/admin/class/edit/{id}', [ClassController::class, 'update']);
     Route::get('/admin/class/delete/{id}', [ClassController::class, 'delete']);
 
-    // Managing subject routes
+    // Admin Managing subject
     Route::get('/admin/subject/list', [SubjectController::class, 'list']);
     Route::get('/admin/subject/add', [SubjectController::class, 'add']);
     Route::post('/admin/subject/add', [SubjectController::class, 'insert']);
@@ -49,7 +59,7 @@ Route::middleware(['admin'])->group(function(){
     Route::post('/admin/subject/edit/{id}', [SubjectController::class, 'update']);
     Route::get('/admin/subject/delete/{id}', [SubjectController::class, 'delete']);
 
-    // Managing Assigning Subject routes
+    // Admin Managing Assigned studentSubject
     Route::get('/admin/assign_subject/list', [ClassSubjectController::class, 'list']);
     Route::get('/admin/assign_subject/add', [ClassSubjectController::class, 'add']);
     Route::post('/admin/assign_subject/add', [ClassSubjectController::class, 'insert']);
@@ -59,7 +69,7 @@ Route::middleware(['admin'])->group(function(){
     Route::post('/admin/assign_subject/edit_single/{id}', [ClassSubjectController::class, 'update_single']);
     Route::get('/admin/assign_subject/delete/{id}', [ClassSubjectController::class, 'delete']);
 
-    // Managing Admin password
+    // Admin Managing Admin password change
     Route::get('/admin/change_password', [UserController::class, 'change_password']);
     Route::post('/admin/change_password', [UserController::class, 'update_password']);
 
