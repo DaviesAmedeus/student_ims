@@ -24,6 +24,15 @@
                                 @csrf
                                 <div class="card-body">
 
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label>Profile picture</label>
+                                            <input type="file" name="profile_picture" class="form-control"
+                                                value="{{ old('caste') }}" >
+                                            <div class="text-danger">{{ $errors->first('profile_picture') }}</div>
+                                        </div>
+                                    </div>
+
                                     <!-- Zero row-->
                                     <div class="row">
                                         <div class="form-group col-md-4">
@@ -70,7 +79,7 @@
                                             <select class="form-control" name="class_id" required>
                                                 <option value="">---Select class---</option>
                                                 @foreach ($classes as $class )
-                                                <option value="{{ $class->id }}">{{$class->name}}</option>
+                                                <option {{ (old('class_id')== $class->id) ? 'selected' : '' }} value="{{ $class->id }}">{{$class->name}}</option>
                                                 @endforeach
                                             </select>
                                             <div class="text-danger">{{ $errors->first('class_id') }}</div>
@@ -110,8 +119,8 @@
                                             <label>Status <span class="text-danger">*</span></label>
                                             <select class="form-control" name="status" required>
                                                 <option value="">---Select status---</option>
-                                                <option value="0">In Active</option>
-                                                <option value="1">Active</option>
+                                                <option {{ (old('status')==0) ? 'selected' : '' }} value="0">In Active</option>
+                                                <option {{ (old('status')==1) ? 'selected' : '' }} value="1">Active</option>
                                             </select>
                                             <div class="text-danger">{{ $errors->first('status') }}</div>
                                         </div>
@@ -120,8 +129,8 @@
                                             <label>Gender <span class="text-danger">*</span></label>
                                             <select class="form-control" name="gender" required>
                                                 <option value="">---Select Gender---</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
+                                                <option {{ (old('gender')=='male') ? 'selected' : '' }} value="male">Male</option>
+                                                <option {{ (old('gender')=='female') ? 'selected' : '' }} value="female">Female</option>
                                             </select>
                                             <div class="text-danger">{{ $errors->first('gender') }}</div>
                                         </div>
@@ -153,11 +162,13 @@
                                             <div class="text-danger">{{ $errors->first('religion') }}</div>
                                         </div>
 
+
+
                                         <div class="form-group col-md-4">
-                                            <label>Profile picture</label>
-                                            <input type="file" name="profile_picture" class="form-control"
-                                                value="{{ old('caste') }}" >
-                                            <div class="text-danger">{{ $errors->first('profile_picture') }}</div>
+                                            <label>Blood Group</label>
+                                            <input type="text" name="blood_group" class="form-control"
+                                                value="{{ old('blood_group') }}" placeholder="Enter student blood_group...">
+                                            <div class="text-danger">{{ $errors->first('blood_group') }}</div>
                                         </div>
 
                                     </div>
@@ -165,28 +176,31 @@
                                     <!-- Fifth row-->
                                     <div class="row">
 
-                                        <div class="form-group col-md-4">
-                                            <label>Blood Group</label>
-                                            <select class="form-control" name="blood_group">
-                                                <option value="">---Select bloog group---</option>
-                                            </select>
-                                            <div class="text-danger">{{ $errors->first('blood_group') }}</div>
-                                        </div>
+
 
                                         <div class="form-group col-md-4">
                                             <label>Height</label>
-                                            <input type="text" name="height" class="form-control"
+                                            <input type="number" name="height" class="form-control"
                                                 value="{{ old('height') }}" placeholder="Enter student height...">
                                             <div class="text-danger">{{ $errors->first('height') }}</div>
                                         </div>
 
                                         <div class="form-group col-md-4">
                                             <label>Weight</label>
-                                            <input type="text" name="weight" class="form-control"
+                                            <input type="number" name="weight" class="form-control"
                                                 value="{{ old('weight') }}" placeholder="Enter student weight....">
                                             <div class="text-danger">{{ $errors->first('weight') }}</div>
                                         </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label>Phone number</label>
+                                            <input type="text" name="mobile_number" class="form-control"
+                                                value="{{ old('mobile_number') }}" placeholder="Enter phone number...">
+                                            <div class="text-danger">{{ $errors->first('mobile_number') }}</div>
+                                        </div>
                                     </div>
+
+
 
                                 </div>
                                 <!-- /.card-body -->

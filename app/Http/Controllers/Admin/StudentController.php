@@ -14,105 +14,164 @@ class StudentController extends Controller
 {
     public function list()
     {
-         $viewData['header_title'] = 'Student List';
-         $viewData['students'] = User::getStudents();
-         return view('admin.student.list', $viewData);
+        $viewData['header_title'] = 'Student List';
+        $viewData['students'] = User::getStudents();
+        return view('admin.student.list', $viewData);
     }
 
     public function add()
     {
-     $viewData['header_title'] = 'Add new Student';
-     $viewData['classes']= ClassModel::getClasses();
-     return view('admin.student.add', $viewData);
-     }
+        $viewData['header_title'] = 'Add new Student';
+        $viewData['classes'] = ClassModel::getClasses();
+        return view('admin.student.add', $viewData);
+    }
 
-     public function insert(Request $request)
-     {
+    public function insert(Request $request)
+    {
         // --- Validation ---
-         $request->validate([
-             'name'=>['required',],
-             'email'=>['required', 'unique:users'],]);
+        $request->validate([
+            'name'         => ['required', 'min:3', 'max:20'],
+            'middle_name'  => ['min:1', 'max:20',],
+            'last_name'    => ['required', 'min:3', 'max:20'],
+            'email'        => ['required', 'unique:users', 'email'],
+            'height'       => ['max:200', 'numeric'],
+            'weight'       => ['max:200', 'numeric'],
+            'caste'        => ['max:50',],
+            'religion'     => ['max:50',],
+            'mobile_number' => ['max:15', 'min:8'],
+            'blood_group'  => ['max:4',],
+            'gender'       => ['required'],
+            'password'     => ['required', 'min:6', 'max:12'],
+        ]);
 
-            //  dd($request->all());
+        $student = new User;
+        $student->name             = trim($request->name);
+        $student->middle_name      = trim($request->middle_name);
+        $student->last_name        = trim($request->last_name);
+        $student->email            = trim($request->email);
+        $student->password         = trim(Hash::make($request->password));
+        $student->class_id         = trim($request->class_id);
+        $student->admission_number = trim($request->admission_number);
+        $student->roll_number       = trim($request->roll_number);
+        $student->status            = trim($request->status);
+        $student->gender            = trim($request->gender);
+        $student->caste             = trim($request->caste);
+        $student->religion          = trim($request->religion);
+        $student->blood_group       = trim($request->blood_group);
+        $student->height            = trim($request->height);
+        $student->weight            = trim($request->weight);
+        $student->mobile_number     = trim($request->mobile_number);
 
-         $user = new User;
-         $user->name = trim($request->name);
-         $user->middle_name = trim($request->middle_name);
-         $user->last_name = trim($request->last_name);
-         $user->email = trim($request->email);
-         $user->password = trim(Hash::make($request->password) );
-         $user->class_id = trim($request->class_id );
-         $user->admission_number = trim($request->admission_number );
+        if (!empty($request->admission_date)) {
+            $student->admission_date = trim($request->admission_date);
+        }
 
-         if(!empty($request->admission_date)){
-            $user->admission_date = trim($request->admission_date );
-         }
+        if (!empty($request->date_of_birth)) {
+            $student->date_of_birth  = trim($request->date_of_birth);
+        }
+        if (!empty($request->file('profile_picture'))) {
+            $extension       = $request->file('profile_picture')->getClientOriginalExtension();
+            $file            = $request->file('profile_picture');
+            $randomStr       = date('Ymdhis') . Str::random(20);
+            $filename        = strtolower($randomStr) . '.' . $extension;
+            $file->move('upload/profile/', $filename);
+            $student->profile_picture = $filename;
+        }
+        $student->user_type = 3;
+        $student->save();
 
-         $user->roll_number = trim($request->roll_number );
-         $user->status = trim($request->status );
-         $user->gender = trim($request->gender );
+        return redirect('admin/student/list')->with('success', 'Student successflly  created!');
+    }
 
-         if(!empty($request->date_of_birth)){
-            $user->date_of_birth = trim($request->date_of_birth );
-         }
+    public function edit($id)
+    {
+        $viewData['student']     = User::getSingleUser($id);
+        $viewData['classes'] = ClassModel::getClasses();
+        $viewData['header_title']  = 'Edit Student';
 
-         $user->caste = trim($request->caste );
-         $user->religion = trim($request->religion );
-         $user->blood_group = trim($request->blood_group );
-         $user->height = trim($request->height );
-         $user->weight = trim($request->weight );
+        if (!empty($viewData['student'])) {
+            return view('admin.student.edit', $viewData);
+        } else {
+            abort(404);
+        }
+    }
 
-         if(!empty($request->file('profile_picture'))){
-           $extension = $request->file('profile_picture')->getClientOriginalExtension();
-           $file = $request->file('profile_picture');
-           $randomStr = date('Ymdhis').Str::random(20);
-           $filename = strtolower($randomStr).'.'.$extension;
-           $file->move('upload/profile/', $filename);
-           $user->profile_picture = $filename;
-         }
-         $user->user_type =3;
-         $user->save();
-
-         return redirect('admin/student/list')->with('success', 'Student successflly  created!');
-      }
-
-      public function edit($id)
+    public function update(Request $request, $id)
     {
 
-     $viewData['getRecord'] = User::getSingleUser($id);
-     $viewData['header_title'] = 'Edit';
+        // dd($request->all());
+        // --- Validation ---
+        $request->validate([
+            'name'         => ['required', 'min:3', 'max:20'],
+            'middle_name'  => ['min:1', 'max:20',],
+            'last_name'    => ['required', 'min:3', 'max:20'],
+            'email'=>['required', 'unique:users,email,'.$id], //if the entred email is the one present for user with this $id it will skip
+            'height'       => ['max:200', 'numeric'],
+            'weight'       => ['max:200', 'numeric'],
+            'caste'        => ['max:50',],
+            'religion'     => ['max:50',],
+            'mobile_number' => ['max:15', 'min:8'],
+            'blood_group'  => ['max:4',],
+            'gender'       => ['required'],
+        ]);
 
-     if(!empty($viewData['getRecord']) ){
-         return view('admin.admin.edit', $viewData);
-     }else{
-         abort(404);
-     }
+            $student                    = User::getSingleUser($id);
+            $student->name              = trim($request->name);
+            $student->middle_name       = trim($request->middle_name);
+            $student->last_name         = trim($request->last_name);
+            $student->email             = trim($request->email);
+            $student->class_id          = trim($request->class_id);
+            $student->admission_number  = trim($request->admission_number);
+            $student->roll_number       = trim($request->roll_number);
+            $student->status            = trim($request->status);
+            $student->gender            = trim($request->gender);
+            $student->caste             = trim($request->caste);
+            $student->religion          = trim($request->religion);
+            $student->blood_group       = trim($request->blood_group);
+            $student->height            = trim($request->height);
+            $student->weight            = trim($request->weight);
+            $student->mobile_number     = trim($request->mobile_number);
 
-     }
-
-     public function update(Request $request, $id)
-    {
-     $request->validate([
-          'email'=>['required', 'unique:users,email,'.$id], //if the entred email is the one present for user with this $id it will skip
-     ]);
-     $user = User::getSingleUser($id);
-     $user->name = trim($request->name);
-     $user->email = trim($request->email);
-     if(!empty($request->password)) {
-         $user->password = trim(Hash::make($request->password) );
-     }
-     $user->save();
-
-     return redirect('admin/admin/list')->with('success', 'Admin successflly  updated!');
-     }
-
-     public function delete($id)
-     {
-         $user = User::getSingleUser($id);
-         $user->is_delete = 1;
-         $user->save();
-         return redirect('admin/admin/list')->with('success', 'Admin successflly  deleted!');
+        if (!empty($request->password)) {
+            $request->validate(['password'     => ['min:6', 'max:12'],]);
+            $student->password          = trim(Hash::make($request->password));
+        }
 
 
-     }
+        if (!empty($request->admission_date)) {
+
+            $student->admission_date    = trim($request->admission_date);
+        }
+
+        if (!empty($request->date_of_birth)) {
+
+        $student    ->date_of_birth     = trim($request->date_of_birth);
+        }
+        if (!empty($request->file('profile_picture'))) {
+
+            if(!empty($student->getProfilePicture())){
+                unlink('upload/profile/'.$student->profile_picture);
+            }
+            $extension   = $request->file('profile_picture')->getClientOriginalExtension();
+            $file        = $request->file('profile_picture');
+            $randomStr   = date('Ymdhis') . Str::random(20);
+            $filename    = strtolower($randomStr) . '.' . $extension;
+            $file->move('upload/profile/', $filename);
+
+            $student->profile_picture = $filename;
+        }
+
+        $student->save();
+
+        return redirect('admin/student/list')->with('success', 'Student successflly  updated!');
+    }
+
+ public function delete($id){
+
+    $student = User::getSingleUser($id);
+    $student->is_delete = 1;
+    $student->save();
+    return redirect('admin/student/list')->with('success', 'You have successfully deleted a student');
+
+ }
 }
