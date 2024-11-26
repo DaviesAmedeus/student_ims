@@ -24,7 +24,8 @@ return new class extends Migration
             $table->tinyInteger('user_type')->default(3)->comments(['1:admin', '2:teacher', '3:student', '4:parent']);
             $table->boolean('status')->default(true)->comments(['0(false):In active', '1(true):Active']);
             $table->boolean('is_delete')->default(false)->comments(['0:not deleted', '1:deleted']);
-
+            $table->string('occupation')->nullable();
+            $table->string('address')->nullable();
 
             $table->string('admission_number')->nullable();
             $table->string('admission_date')->nullable();

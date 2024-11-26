@@ -23,7 +23,17 @@
         class="nav-link {{ Request::segment(2) == 'student' ? 'active' : '' }}">
         <i class="nav-icon far fa-user "></i>
         <p>
-            Student
+            Students
+        </p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ asset('admin/parent/list') }}"
+        class="nav-link {{ Request::segment(2) == 'parent' ? 'active' : '' }}">
+        <i class="nav-icon far fa-user "></i>
+        <p>
+            Parents
         </p>
     </a>
 </li>

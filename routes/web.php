@@ -9,8 +9,7 @@ use App\Http\Controllers\Admin\ClassController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\ClassSubjectController;
-
-
+use App\Http\Controllers\Admin\ParentController;
 
 Route::get('/', [AuthController::class, 'index']); //returns a form to login
 Route::post('/', [AuthController::class, 'login'])->name('login'); //triggers a function to login a user
@@ -43,6 +42,14 @@ Route::middleware(['admin'])->group(function(){
     Route::get('/admin/student/edit/{id}', [StudentController::class, 'edit']);
     Route::post('/admin/student/edit/{id}', [StudentController::class, 'update']);
     Route::get('/admin/student/delete/{id}', [StudentController::class, 'delete']);
+
+    // Admin Managing Parent
+    Route::get('/admin/parent/list', [ParentController::class, 'list']);
+    Route::get('/admin/parent/add', [ParentController::class, 'add']);
+    Route::post('/admin/parent/add', [ParentController::class, 'insert']);
+    Route::get('/admin/parent/edit/{id}', [ParentController::class, 'edit']);
+    Route::post('/admin/parent/edit/{id}', [ParentController::class, 'update']);
+    Route::get('/admin/parent/delete/{id}', [ParentController::class, 'delete']);
 
     // Admin Managing class
     Route::get('/admin/class/list', [ClassController::class, 'list']);

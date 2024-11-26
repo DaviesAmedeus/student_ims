@@ -145,6 +145,62 @@ class User extends Authenticatable
       return $return;
     }
 
+    static public function getParents(){
+        $return = self::select('users.*')
+            ->where('user_type', '=', 4)
+            ->where('is_delete', '=', 0);
+
+            if(!empty(Request::get('name'))){
+                $return = $return->where('users.name', 'like', '%'.Request::get('name').'%');
+            }
+            if(!empty(Request::get('email'))){
+                $return = $return->where('users.email', 'like', '%'.Request::get('email').'%');
+            }
+
+
+            // if(!empty(Request::get('class_name'))){
+            //     $return = $return->where('classes.class_name', 'like', '%'.Request::get('class_name').'%');
+            // }
+
+            if(!empty(Request::get('gender'))){
+                $return = $return->where('users.gender', 'like', Request::get('gender'));
+            }
+
+
+            if(!empty(Request::get('occupation'))){
+                $return = $return->where('users.occupation', 'like', '%'.Request::get('occupation').'%');
+            }
+
+
+            if(!empty(Request::get('address'))){
+                $return = $return->where('users.address', 'like', '%'.Request::get('address').'%');
+            }
+
+            if(!empty(Request::get('mobile_number'))){
+                $return = $return->where('users.mobile_number', 'like', '%'.Request::get('mobile_number').'%');
+            }
+
+            if(!empty(Request::get('status'))){
+                $return = $return->where('users.status', 'like', Request::get('status'));
+            }
+
+
+            if(!empty(Request::get('created_at'))){
+                $return = $return->whereDate('users.created_at', 'like', Request::get('created_at'));
+            }
+
+
+
+        $return = $return->orderBy('id','desc')
+                ->paginate(20);
+
+        return $return;
+    }
+
+
+
+
+
      public function getProfilePicture(){
         if(!empty($this->profile_picture) && file_exists('upload/profile/'.$this->profile_picture))
         {
