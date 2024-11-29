@@ -24,12 +24,19 @@ return new class extends Migration
             $table->tinyInteger('user_type')->default(3)->comments(['1:admin', '2:teacher', '3:student', '4:parent']);
             $table->boolean('status')->default(true)->comments(['0(false):In active', '1(true):Active']);
             $table->boolean('is_delete')->default(false)->comments(['0:not deleted', '1:deleted']);
-
+            $table->string('occupation')->nullable();
+            $table->string('address')->nullable();
+            $table->string('permanent_address')->nullable();
+            $table->string('marital_status')->nullable();
+            $table->string('qualification')->nullable();
+            $table->string('experience')->nullable();
 
             $table->string('admission_number')->nullable();
+            $table->date('joining_date')->nullable();
             $table->string('admission_date')->nullable();
             $table->string('roll_number')->nullable();
             $table->bigInteger('class_id')->nullable();
+            $table->bigInteger('parent_id')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('caste')->nullable();
             $table->string('religion')->nullable();

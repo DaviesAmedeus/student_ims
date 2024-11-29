@@ -5,11 +5,10 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Student List <span class="badge badge-secondary"> Total: {{ $students->total() }}</span>
-                        </h1>
+                        <h1>Parent List <span class="badge badge-secondary"> Total: {{ $parents->total() }}</span> </h1>
                     </div>
                     <div class="col-sm-6" style="text-align: right;">
-                        <a href="{{ url('admin/student/add') }}" class="btn btn-primary">Add new Student</a>
+                        <a href="{{ url('admin/parent/add') }}" class="btn btn-primary">Add new Admin</a>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -45,26 +44,8 @@
                                                 value="{{ Request::get('email') }}" placeholder="Search by email">
                                         </div>
 
-                                        <div class="form-group col-md-3">
-                                            <label value="">Admission number</label>
-                                            <input type="text" name="adminssion_number" class="form-control"
-                                                value="{{ Request::get('adminssion_number') }}"
-                                                placeholder="Search by adminssion_number">
-                                        </div>
 
-                                        <div class="form-group col-md-3">
-                                            <label>Roll number</label>
-                                            <input type="text" name="roll_number" class="form-control"
-                                                value="{{ Request::get('roll_number') }}"
-                                                placeholder="Search by roll_number">
-                                        </div>
 
-                                        <div class="form-group col-md-3">
-                                            <label>Class name</label>
-                                            <input type="text" name="class_name" class="form-control"
-                                                value="{{ Request::get('class_name') }}"
-                                                placeholder="Search by class_name">
-                                        </div>
 
                                         <div class="form-group col-md-3">
                                             <label>Gender</label>
@@ -78,25 +59,8 @@
                                             </select>
                                         </div>
 
-                                        <div class="form-group col-md-3">
-                                            <label>Date of birth</label>
-                                            <input type="date" name="date_of_birth" class="form-control"
-                                                value="{{ Request::get('date_of_birth') }}"
-                                                placeholder="Search by date_of_birth">
-                                        </div>
 
-                                        <div class="form-group col-md-3">
-                                            <label for="Caste">Caste</label>
-                                            <input type="text" name="caste" class="form-control"
-                                                value="{{ Request::get('caste') }}" placeholder="Search by caste">
-                                        </div>
 
-                                        <div class="form-group col-md-3">
-                                            <label for="">Religion</label>
-                                            <input type="text" name="religion" class="form-control"
-                                                value="{{ Request::get('religion') }}"
-                                                placeholder="Search by religion">
-                                        </div>
 
                                         <div class="form-group col-md-3">
                                             <label for="">Mobile Number</label>
@@ -105,19 +69,20 @@
                                                 placeholder="Search by mobile_number">
                                         </div>
 
+
                                         <div class="form-group col-md-3">
-                                            <label>Admission Date</label>
-                                            <input type="date" name="admission_date" class="form-control"
-                                                value="{{ Request::get('admission_date') }}"
-                                                placeholder="Search by admission_date">
+                                            <label>Occupation</label>
+                                            <input type="text" name="occupation" class="form-control"
+                                                value="{{ Request::get('occupation') }}" placeholder="Search by occupation">
                                         </div>
 
                                         <div class="form-group col-md-3">
-                                            <label for="Blood group">Blood group</label>
-                                            <input type="text" name="blood_group" class="form-control"
-                                                value="{{ Request::get('blood_group') }}"
-                                                placeholder="Search by blood_group">
+                                            <label>Address</label>
+                                            <input type="text" name="address" class="form-control"
+                                                value="{{ Request::get('address') }}" placeholder="Search by address">
                                         </div>
+
+
 
                                         <div class="form-group col-md-3">
                                             <label for="Status">Status</label>
@@ -134,13 +99,12 @@
                                         <div class="form-group col-md-3">
                                             <label>Date created</label>
                                             <input type="date" name="created_at" class="form-control"
-                                                value="{{ Request::get('created_at') }}"
-                                                >
+                                                value="{{ Request::get('created_at') }}">
                                         </div>
 
                                         <div class="form-group col-md-3 pt-4">
                                             <button class="btn btn-primary btn-lg">Search</button>
-                                            <a href="{{ url('admin/student/list') }}"
+                                            <a href="{{ url('admin/parent/list') }}"
                                                 class="btn btn-success btn-lg">Reset</a>
                                         </div>
                                     </div>
@@ -157,8 +121,8 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
-        <!-- End Form filter -->
 
+        <!-- End Form filter -->
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -168,33 +132,24 @@
                         @include('_message')
                         <div class="card">
                             <!-- /.card-header -->
-                            <div class="card-body p-0" style="overflow: auto;">
+                            <div class="card-body p-0">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>Profile picture</th>
-                                            <th>Student Name </th>
-                                            <th>Parent Name </th>
+                                            <th>Name </th>
                                             <th>Email</th>
-                                            <th>Admission No</th>
-                                            <th>Roll No.</th>
-                                            <th>Class</th>
                                             <th>Gender</th>
-                                            <th>Date of birth</th>
-                                            <th>Caste</th>
-                                            <th>Religion</th>
-                                            <th>Mobile Number</th>
-                                            <th>Admission Date</th>
-                                            <th>Blood group</th>
-                                            <th>Height</th>
-                                            <th>Weight</th>
+                                            <th>Phone</th>
+                                            <th>Occupation</th>
+                                            <th>Address</th>
                                             <th>Status</th>
-                                            <th>Created Date</th>
+                                            <th>Created date</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($students as $value)
+                                        @foreach ($parents as $value)
                                             <tr>
                                                 <td>
                                                     @if (!@empty($value->getProfilePicture()))
@@ -212,27 +167,23 @@
                                                         {{ $value->last_name }}
                                                     @endif
                                                 </td>
-                                                <td>{{ $value->parent_name }} {{ $value->parent_last_name }}</td>
                                                 <td>{{ $value->email }}</td>
-                                                <td>{{ $value->admission_number }}</td>
-                                                <td>{{ $value->roll_number }}</td>
-                                                <td>{{ $value->class_name }}</td>
                                                 <td>{{ $value->gender }}</td>
-                                                <td>{{ date('d-m-Y ', strtotime($value->date_of_birth)) }}</td>
-                                                <td>{{ $value->caste }}</td>
-                                                <td>{{ $value->religion }}</td>
                                                 <td>{{ $value->mobile_number }}</td>
-                                                <td>{{ date('d-m-Y ', strtotime($value->admission_date)) }}</td>
-                                                <td>{{ $value->blood_group }}</td>
-                                                <td>{{ $value->height }}</td>
-                                                <td>{{ $value->weight }}</td>
-                                                <td>{{ $value->status == 1 ? 'Active' : 'In Active' }}</td>
-                                                <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
-                                                <td style="min-width: 150px">
-                                                    <a href="{{ url('admin/student/edit/' . $value->id) }}"
-                                                        class="btn btn-primary btn-sm">Edit</a>
-                                                    <a href="{{ url('admin/student/delete/' . $value->id) }}"
-                                                        class="btn btn-danger btn-sm">Delete</a>
+                                                <td>{{ $value->occupation }}</td>
+                                                <td>{{ $value->address }}</td>
+                                                <td>{{ $value->status === 1 ? 'Active' : 'In Active' }}</td>
+
+
+
+                                                <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
+                                                <td>
+                                                    <a href="{{ url('admin/parent/edit/' . $value->id) }}"
+                                                        class="btn btn-primary">Edit</a>
+                                                    <a href="{{ url('admin/parent/delete/' . $value->id) }}"
+                                                        class="btn btn-danger">Delete</a>
+                                                        <a href="{{ url('admin/parent/my_student/' . $value->id) }}"
+                                                            class="btn btn-primary">My Student</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -240,7 +191,7 @@
                                 </table>
 
                                 <div style="padding: 10px; float:right;">
-                                    {!! $students->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                                    {!! $parents->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
                                 </div>
 
 
