@@ -27,19 +27,19 @@ class ParentController extends Controller
 
     public function insert(Request $request)
     {
-    $request->validate([
-        'profile_picture'=> ['nullable'],
-        'name'           => ['required', 'min:3', 'max:20'],
-        'middle_name'    => ['nullable','min:1', 'max:20',],
-        'last_name'      => ['required', 'min:3', 'max:20'],
-        'email'          => ['required', 'unique:users', 'email'],
-        'occupation'     => ['max:255'],
-        'address'        => ['max:255'],
-        'mobile_number'  => ['max:15', 'min:8'],
-        'gender'         => ['required'],
-        'status'         => ['required'],
-        'password'       => ['required', 'min:6', 'max:12'],
-    ]);
+        $request->validate([
+            'profile_picture' => ['nullable'],
+            'name'           => ['required', 'min:3', 'max:20'],
+            'middle_name'    => ['nullable', 'min:1', 'max:20',],
+            'last_name'      => ['required', 'min:3', 'max:20'],
+            'email'          => ['required', 'unique:users', 'email'],
+            'occupation'     => ['max:255'],
+            'address'        => ['max:255'],
+            'mobile_number'  => ['max:15', 'min:8'],
+            'gender'         => ['required'],
+            'status'         => ['required'],
+            'password'       => ['required', 'min:6', 'max:12'],
+        ]);
 
         $parent                    = new User;
 
@@ -68,7 +68,6 @@ class ParentController extends Controller
         $parent->save();
 
         return redirect('admin/parent/list')->with('success', 'Parent successflly  created!');
-
     }
 
     public function edit($id)
@@ -89,10 +88,10 @@ class ParentController extends Controller
         // dd($request->all());
         // --- Validation ---
         $request->validate([
-            'profile_picture'=> ['nullable'],
+            'profile_picture' => ['nullable'],
             'name'           => ['required', 'min:3', 'max:20'],
             'last_name'      => ['required', 'min:3', 'max:20'],
-            'email'          =>['required', 'unique:users,email,'.$id],
+            'email'          => ['required', 'unique:users,email,' . $id],
             'occupation'     => ['max:255'],
             'address'        => ['max:255'],
             'mobile_number'  => ['max:15', 'min:8'],
@@ -100,16 +99,16 @@ class ParentController extends Controller
             'status'         => ['required'],
         ]);
 
-            $parent                    = User::getSingleUser($id);
-            $parent->name              = trim($request->name);
-            $parent->middle_name       = trim($request->middle_name);
-            $parent->last_name         = trim($request->last_name);
-            $parent->email             = trim($request->email);
-            $parent->gender            = trim($request->gender);
-            $parent->mobile_number     = trim($request->mobile_number);
-            $parent->occupation        = trim($request->occupation);
-            $parent->address           = trim($request->address);
-            $parent->status            = trim($request->status);
+        $parent                    = User::getSingleUser($id);
+        $parent->name              = trim($request->name);
+        $parent->middle_name       = trim($request->middle_name);
+        $parent->last_name         = trim($request->last_name);
+        $parent->email             = trim($request->email);
+        $parent->gender            = trim($request->gender);
+        $parent->mobile_number     = trim($request->mobile_number);
+        $parent->occupation        = trim($request->occupation);
+        $parent->address           = trim($request->address);
+        $parent->status            = trim($request->status);
 
         if (!empty($request->password)) {
             $request->validate(['password'     => ['min:6', 'max:12'],]);
@@ -120,8 +119,8 @@ class ParentController extends Controller
 
         if (!empty($request->file('profile_picture'))) {
 
-            if(!empty($parent->getProfilePicture())){
-                unlink('upload/profile/'.$parent->profile_picture);
+            if (!empty($parent->getProfilePicture())) {
+                unlink('upload/profile/' . $parent->profile_picture);
             }
             $extension   = $request->file('profile_picture')->getClientOriginalExtension();
             $file        = $request->file('profile_picture');
@@ -137,12 +136,39 @@ class ParentController extends Controller
         return redirect('admin/parent/list')->with('success', 'Parent successflly  updated!');
     }
 
- public function delete($id){
+    public function delete($id)
+    {
 
-    $student = User::getSingleUser($id);
-    $student->is_delete = 1;
-    $student->save();
-    return redirect('admin/parent/list')->with('success', 'You have successfully deleted a student');
+        $student = User::getSingleUser($id);
+        $student->is_delete = 1;
+        $student->save();
+        return redirect('admin/parent/list')->with('success', 'You have successfully deleted a student');
+    }
 
- }
+
+    public function myStudent($id)
+    {
+        $viewData['header_title'] = 'Parents Student List';
+        $viewData['parent'] = User::getSingleUser($id);
+        // $viewData['parent_id'] = $id;
+        $viewData['getSearchedStudents'] = User::getSearchStudents();
+        $viewData['getParentStudents'] = User::getParentStudents($id);
+        return view('admin.parent.my_student', $viewData);
+    }
+
+    public function assignStudentParent($student_id, $parent_id){
+        $student = User::getSingleUser($student_id);
+        $student->parent_id = $parent_id;
+        $student->save();
+
+        return redirect()->back()->with('success', 'Student successfully Assigned');
+    }
+
+    public function assignStudentParentDelete($student_id){
+        $student = User::getSingleUser($student_id);
+        $student->parent_id = null;
+        $student->save();
+
+        return redirect()->back()->with('success', 'Student Assigned to this was Deleted!');
+    }
 }

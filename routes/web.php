@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\ClassSubjectController;
 use App\Http\Controllers\Admin\ParentController;
+use App\Http\Controllers\Admin\TeacherController;
 
 Route::get('/', [AuthController::class, 'index']); //returns a form to login
 Route::post('/', [AuthController::class, 'login'])->name('login'); //triggers a function to login a user
@@ -35,6 +36,14 @@ Route::middleware(['admin'])->group(function(){
     Route::post('/admin/admin/edit/{id}', [AdminController::class, 'update']);
     Route::get('/admin/admin/delete/{id}', [AdminController::class, 'delete']);
 
+    // Admin Managing Teacher
+    Route::get('/admin/teacher/list', [TeacherController::class, 'list']);
+    Route::get('/admin/teacher/add', [TeacherController::class, 'add']);
+    Route::post('/admin/teacher/add', [TeacherController::class, 'insert']);
+    Route::get('/admin/teacher/edit/{id}', [TeacherController::class, 'edit']);
+    Route::post('/admin/teacher/edit/{id}', [TeacherController::class, 'update']);
+    Route::get('/admin/teacher/delete/{id}', [TeacherController::class, 'delete']);
+
     // Admin Managing Student
     Route::get('/admin/student/list', [StudentController::class, 'list']);
     Route::get('/admin/student/add', [StudentController::class, 'add']);
@@ -50,6 +59,9 @@ Route::middleware(['admin'])->group(function(){
     Route::get('/admin/parent/edit/{id}', [ParentController::class, 'edit']);
     Route::post('/admin/parent/edit/{id}', [ParentController::class, 'update']);
     Route::get('/admin/parent/delete/{id}', [ParentController::class, 'delete']);
+    Route::get('/admin/parent/my_student/{id}', [ParentController::class, 'myStudent']);
+    Route::get('/admin/parent/assign_student_parent/{student_id}/{parent_id}', [ParentController::class, 'assignStudentParent']);
+    Route::get('admin/parent/assign_student_parent_delete/{student_id}', [ParentController::class, 'assignStudentParentDelete']);
 
     // Admin Managing class
     Route::get('/admin/class/list', [ClassController::class, 'list']);
