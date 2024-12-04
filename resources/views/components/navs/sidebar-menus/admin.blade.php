@@ -77,6 +77,15 @@
         </p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{ asset('admin/account') }}"
+        class="nav-link {{ Request::segment(2) == 'account' ? 'active' : '' }}">
+        <i class="nav-icon far fa-user "></i>
+        <p>
+            My Account
+        </p>
+    </a>
+</li>
 
 <li class="nav-item">
     <a href="{{ asset('admin/change_password') }}"

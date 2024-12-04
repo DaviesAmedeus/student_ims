@@ -9,6 +9,15 @@
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{ asset('parent/account') }}"
+        class="nav-link {{ Request::segment(2) == 'account' ? 'active' : '' }}">
+        <i class="nav-icon far fa-user "></i>
+        <p>
+            My Account
+        </p>
+    </a>
+</li>
 
 <li class="nav-item">
     <a href="{{ asset('parent/change_password') }}"

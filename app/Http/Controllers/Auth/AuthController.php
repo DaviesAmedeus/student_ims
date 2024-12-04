@@ -42,6 +42,7 @@ class AuthController extends Controller
         // dd($request->all());
            $remember = !empty($request->remember) ? true : false;
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)){
+
             if(Auth::user()->user_type == 1){
                 return redirect('admin/dashboard');
             } elseif(Auth::user()->user_type == 2){
@@ -111,7 +112,6 @@ class AuthController extends Controller
 
     public function  logout(Request $request):RedirectResponse
     {
-        // dd($request->all());
          Auth::logout();
          return redirect('/');
     }
