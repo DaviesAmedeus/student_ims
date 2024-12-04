@@ -22,10 +22,9 @@ Route::post('/reset/{token}', [AuthController::class, 'postReset']);
 
 
 
-
+/* ---- ADMIN ROUTES ----*/
 Route::middleware(['admin'])->group(function(){
-
-    //returns Admin Dashboard
+    //Admin Dashboard
     Route::get('/admin/dashboard', [DashboardController::class, 'dashboard']);
 
     // Admin Managing Admin
@@ -94,30 +93,51 @@ Route::middleware(['admin'])->group(function(){
     Route::post('/admin/change_password', [UserController::class, 'update_password']);
 
 
+    Route::get('/admin/account', [UserController::class, 'myAccount']);
+    Route::post('/admin/account', [UserController::class, 'updateMyAccountAdmin']);
+
+
 });
 
 
-
+/* ---- TEACHER ROUTES ----*/
 Route::middleware(['teacher'])->group(function(){
-    Route::get('/teacher/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
+    //Teacher Dashboard
+    Route::get('/teacher/dashboard', [DashboardController::class, 'dashboard']);
 
-    // Managing teacher password
+    // Teacher Managing password change
     Route::get('/teacher/change_password', [UserController::class, 'change_password']);
     Route::post('/teacher/change_password', [UserController::class, 'update_password']);
+
+    Route::get('/teacher/account', [UserController::class, 'myAccount']);
+    Route::post('/teacher/account', [UserController::class, 'updateMyAccountTeacher']);
+
 });
 
+
+/* ---- STUDENT ROUTES ----*/
 Route::middleware(['student'])->group(function(){
+    //Student Dashboard
     Route::get('/student/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
 
     // Managing student password
     Route::get('/student/change_password', [UserController::class, 'change_password']);
     Route::post('/student/change_password', [UserController::class, 'update_password']);
+
+    Route::get('/student/account', [UserController::class, 'myAccount']);
+    Route::post('/student/account', [UserController::class, 'updateMyAccountStudent']);
 });
 
+
+/* ---- PARENT ROUTES ----*/
 Route::middleware(['parent'])->group(function(){
+    //Parent Dashboard
     Route::get('/parent/dashboard', [DashboardController::class, 'dashboard']); //returns a form to login
 
     // Managing parent password
     Route::get('/parent/change_password', [UserController::class, 'change_password']);
     Route::post('/parent/change_password', [UserController::class, 'update_password']);
+
+    Route::get('/parent/account', [UserController::class, 'myAccount']);
+    Route::post('/parent/account', [UserController::class, 'updateMyAccountParent']);
 });

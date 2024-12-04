@@ -167,7 +167,6 @@
                                                     @endif
                                                 </td>
                                                 <td style="min-width: 150px">
-
                                                     {{ $value->name }}
                                                     @if ($value->middle_name)
                                                         {{ $value->middle_name }}
@@ -184,8 +183,6 @@
                                                 <td>{{ $value->address }}</td>
                                                 <td>{{ $value->permanent_address }}</td>
                                                 <td>{{ $value->status === 1 ? 'Active' : 'In Active' }}</td>
-
-
                                                 <td>{{ date('d-m-Y H:i A', strtotime($value->joining_date)) }}</td>
                                                 <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
                                                 <td style="min-width: 150px">
@@ -198,12 +195,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-
                                 <div style="padding: 10px; float:right;">
                                     {!! $teachers->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
                                 </div>
-
-
                             </div>
                             <!-- /.card-body -->
                         </div>
